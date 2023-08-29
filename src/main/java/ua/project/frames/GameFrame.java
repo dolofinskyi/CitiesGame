@@ -7,14 +7,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameFrame extends JFrame implements ActionListener {
-
     JLabel cityHintLabel;
     JLabel computerLabel;
 
     JTextField cityField;
     JButton makeMoveButton;
 
-    final Font font = new Font(Font.DIALOG, Font.BOLD, 14);
+    final Font font = new Font(Font.DIALOG, Font.BOLD, 13);
 
     public GameFrame() {
         super("Міста");
@@ -37,7 +36,7 @@ public class GameFrame extends JFrame implements ActionListener {
 
         cityHintLabel = new JLabel("Введіть назву міста");
         computerLabel = new JLabel("Комп'ютер: ");
-        cityField = new JTextField(12);
+        cityField = new JTextField();
         makeMoveButton = new JButton("Зробити хід");
 
         cityField.setPreferredSize(new Dimension(125, 25));
@@ -45,7 +44,7 @@ public class GameFrame extends JFrame implements ActionListener {
 
         makeMoveButton.setFont(font);
         cityHintLabel.setFont(font);
-        cityHintLabel.setFont(font);
+        computerLabel.setFont(font);
 
         panel0.add(cityField);
         panel0.add(cityHintLabel);
