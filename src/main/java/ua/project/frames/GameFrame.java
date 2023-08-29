@@ -30,16 +30,18 @@ public class GameFrame extends JFrame implements ActionListener {
         rootPanel.setBorder(margin);
 
         JPanel panel0 = new JPanel();
-        panel0.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panel0.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
 
         JPanel panel1 = new JPanel();
-        panel1.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panel1.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
 
         cityHintLabel = new JLabel("Введіть назву міста");
         computerLabel = new JLabel("Комп'ютер: ");
         cityField = new JTextField(12);
         makeMoveButton = new JButton("Зробити хід");
-        makeMoveButton.setMaximumSize(new Dimension(75, makeMoveButton.getHeight()));
+
+        cityField.setPreferredSize(new Dimension(125, 25));
+        makeMoveButton.setPreferredSize(new Dimension(125, 25));
 
         makeMoveButton.setFont(font);
         cityHintLabel.setFont(font);
