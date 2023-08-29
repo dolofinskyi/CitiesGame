@@ -13,7 +13,7 @@ public class GreetingFrame extends JFrame implements ActionListener {
     public GreetingFrame() {
         super("Вітаємо!");
         drawElements();
-        configureGrame();
+        configureFrame();
     }
 
     private void drawElements() {
@@ -30,7 +30,7 @@ public class GreetingFrame extends JFrame implements ActionListener {
         add(b);
     }
 
-    private void configureGrame() {
+    private void configureFrame() {
         setSize(480, 130);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -43,7 +43,7 @@ public class GreetingFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == b) {
             dispose();
-            //new GameWindow();
+            new GameFrame();
         }
     }
 }
