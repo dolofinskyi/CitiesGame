@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameFrame extends JFrame implements ActionListener {
+    JMenuBar menuBar;
+    JMenu mainMenu;
+    JMenuItem settingsMenu;
     JLabel cityHintLabel;
     JLabel computerLabel;
 
@@ -22,6 +25,13 @@ public class GameFrame extends JFrame implements ActionListener {
     }
 
     private void drawElements() {
+        menuBar = new JMenuBar();
+        mainMenu = new JMenu("Налаштування");
+        settingsMenu = new JMenuItem("Варіант гри");
+        mainMenu.add(settingsMenu);
+        menuBar.add(mainMenu);
+        settingsMenu.addActionListener(this);
+
         JPanel rootPanel = new JPanel();
         rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.PAGE_AXIS));
 
@@ -51,6 +61,7 @@ public class GameFrame extends JFrame implements ActionListener {
         panel1.add(makeMoveButton);
         panel1.add(computerLabel);
 
+        rootPanel.add(menuBar);
         rootPanel.add(panel0);
         rootPanel.add(panel1);
 
@@ -59,7 +70,7 @@ public class GameFrame extends JFrame implements ActionListener {
     }
 
     private void configureFrame() {
-        setSize(360, 140);
+        setSize(360, 165);
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -71,6 +82,8 @@ public class GameFrame extends JFrame implements ActionListener {
         if (e.getSource() == makeMoveButton) {
             dispose();
             //new GameWindow();
+        } else if (e.getSource() == settingsMenu) {
+            new SettingsFrame();
         }
     }
 }
