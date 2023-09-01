@@ -5,38 +5,46 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GreetingFrame extends JFrame implements ActionListener {
+public class GreetingFrame extends SuperFrame implements ActionListener {
+    JMenuBar menuBar;
+    JMenu mainMenu;
+    JMenuItem loaderSettingsMenu;
+    JMenuItem lobbySettingsMenu;
+
     JLabel lb;
     JButton b;
-    final Font font = new Font(Font.DIALOG, Font.BOLD, 15);
 
     public GreetingFrame() {
-        super("Вітаємо!");
-        drawElements();
-        configureFrame();
+        super("Вітаємо!", new Dimension(350, 150));
     }
 
-    private void drawElements() {
-        lb = new JLabel("Вітаємо вас у грі дитинства і всіх розумників!");
-        lb.setBounds(30, 30, 350, 30);
-        lb.setFont(font);
+    @Override
+    public void drawElements() {
+        menuBar = new JMenuBar();
+        mainMenu = new JMenu("Налаштування");
 
-        b = new JButton("OK");
-        b.setBounds(380, 30, 60, 30);
-        b.setFont(font);
+        loaderSettingsMenu = new JMenuItem("Варіант гри");
+        lobbySettingsMenu = new JMenuItem("Змінити лоббі гри");
+
+        mainMenu.setPreferredSize(new Dimension(150, 25));
+        loaderSettingsMenu.setPreferredSize(new Dimension(150, 25));
+        lobbySettingsMenu.setPreferredSize(new Dimension(150, 25));
+
+        mainMenu.add(loaderSettingsMenu);
+        mainMenu.add(lobbySettingsMenu);
+        menuBar.add(mainMenu);
+
+        loaderSettingsMenu.addActionListener(this);
+        lobbySettingsMenu.addActionListener(this);
+
+        lb = new JLabel("Вітаємо вас у грі дитинства і всіх розумників!");
+
+        b = new JButton("Розпочати гру");
         b.addActionListener(this);
 
-        add(lb);
-        add(b);
-    }
-
-    private void configureFrame() {
-        setSize(480, 130);
-        setLocationRelativeTo(null);
-        setResizable(false);
-        setLayout(null);
-        setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        getRootPanel().add(menuBar);
+        getRootPanel().add(lb);
+        getRootPanel().add(b);
     }
 
     @Override
@@ -44,6 +52,12 @@ public class GreetingFrame extends JFrame implements ActionListener {
         if (e.getSource() == b) {
             dispose();
             new GameFrame();
+        }
+        if(e.getSource() == loaderSettingsMenu){
+            new LoaderSettingsFrame();
+        }
+        if(e.getSource() == lobbySettingsMenu){
+            new LobbySettingsFrame();
         }
     }
 }
