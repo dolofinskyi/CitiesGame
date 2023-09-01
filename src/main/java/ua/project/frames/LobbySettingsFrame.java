@@ -68,9 +68,10 @@ public class LobbySettingsFrame extends SuperFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == addPlayerButton){
-            String nickname = playerField.getText();
-            if (nickname.length() < 5){
-                // занадто мало символів!
+            String nickname = playerField.getText().strip();
+
+            if (nickname.length() < 5 || nickname.length() > 15){
+                // не підходить
                 return;
             }
 
@@ -82,7 +83,7 @@ public class LobbySettingsFrame extends SuperFrame implements ActionListener {
         }
 
         if (e.getSource() == removePlayerButton){
-            String nickname = playerField.getText();
+            String nickname = playerField.getText().strip();
             players.remove(nickname);
             refreshStats();
         }
