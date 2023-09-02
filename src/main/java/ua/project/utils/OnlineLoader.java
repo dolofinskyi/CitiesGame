@@ -6,7 +6,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class OnlineLoader {
@@ -24,18 +24,15 @@ public class OnlineLoader {
     }
 
 
-    public static ArrayList<String> getOnlineCities() throws IOException {
+    public static List<String> getOnlineCities() throws IOException {
         Document document = Jsoup.connect(URL_CITY_OF_UKRAINE).get();
-
         Elements cityElements = document.select("a.alist");
-        ArrayList<String> cityNames = (ArrayList<String>) cityElements.stream()
 
+        return cityElements.stream()
                 .map(Element::text)
                 .filter(OnlineLoader::cityNameIsCorrect)
                 .map(OnlineLoader::getCleanCityName)
                 .collect(Collectors.toList());
-
-        return cityNames;
 
     }
 }
