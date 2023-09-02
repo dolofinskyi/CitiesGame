@@ -1,5 +1,4 @@
-package org.example.User;
-
+package ua.project.users;
 import java.util.Set;
 
 public abstract class Player {
@@ -20,6 +19,5 @@ public abstract class Player {
     }
 
     public abstract String getSmartCityStartingWith(char letter);
-
     public abstract void addUsedCity(String city);
 }
