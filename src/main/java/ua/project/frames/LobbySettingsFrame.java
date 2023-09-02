@@ -1,10 +1,16 @@
 package ua.project.frames;
 
+import ua.project.users.ComputerPlayer;
+import ua.project.users.HumanPlayer;
+import ua.project.users.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class LobbySettingsFrame extends SuperFrame implements ActionListener {
     JTextField playerField;
@@ -13,13 +19,8 @@ public class LobbySettingsFrame extends SuperFrame implements ActionListener {
     JButton confirmButton;
     JTextArea playersArea;
 
-    // Game.players або ArrayList<String> players;
-    ArrayList<String> players = new ArrayList<>();
-
     public LobbySettingsFrame() {
         super("Лоббі гри", new Dimension(300, 300));
-        players.add("user1");
-        players.add("Comp");
     }
 
     @Override
@@ -64,7 +65,9 @@ public class LobbySettingsFrame extends SuperFrame implements ActionListener {
     }
 
     private void refreshStats(){
-        playersArea.setText(String.join("\n", players));
+        playersArea.setText(String.join("\n", game.players.stream()
+                .map(Player::getName)
+                .toList()));
     }
 
     @Override
@@ -72,13 +75,17 @@ public class LobbySettingsFrame extends SuperFrame implements ActionListener {
         if (e.getSource() == addPlayerButton){
             String nickname = playerField.getText().strip();
 
-            if (nickname.length() < 5 || nickname.length() > 15){
+            if (nickname.length() < 4 || nickname.length() > 16){
                 // не підходить
                 return;
             }
 
-            if (!players.contains(nickname)){
-                players.add(nickname);
+            if (game.getPlayerByNickname(nickname) == null){
+                if (nickname.equals("Comp")) {
+                    game.players.add(new ComputerPlayer(nickname));
+                } else{
+                    game.players.add(new HumanPlayer(nickname));
+                }
             }
 
             refreshStats();
@@ -86,12 +93,12 @@ public class LobbySettingsFrame extends SuperFrame implements ActionListener {
 
         if (e.getSource() == removePlayerButton){
             String nickname = playerField.getText().strip();
-            players.remove(nickname);
+            game.players.remove(game.getPlayerByNickname(nickname));
             refreshStats();
         }
 
         if (e.getSource() == confirmButton){
-            if (players.size() >= 2){
+            if (game.players.size() >= 2){
                 dispose();
                 // game.players = players;
             }

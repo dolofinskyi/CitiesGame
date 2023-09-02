@@ -1,6 +1,5 @@
 package ua.project.users;
 import java.util.List;
-import java.util.Set;
 
 public abstract class Player {
     protected String name;
