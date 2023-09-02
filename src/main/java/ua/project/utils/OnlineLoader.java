@@ -23,16 +23,19 @@ public class OnlineLoader {
         return !str.contains(".");
     }
 
+
     public static ArrayList<String> getOnlineCities() throws IOException {
         Document document = Jsoup.connect(URL_CITY_OF_UKRAINE).get();
 
         Elements cityElements = document.select("a.alist");
         ArrayList<String> cityNames = (ArrayList<String>) cityElements.stream()
+
                 .map(Element::text)
                 .filter(OnlineLoader::cityNameIsCorrect)
                 .map(OnlineLoader::getCleanCityName)
                 .collect(Collectors.toList());
 
         return cityNames;
+
     }
 }
