@@ -14,9 +14,10 @@ import java.util.stream.StreamSupport;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class OfflineLoader {
-    public static String FILENAME = "src/main/resources/cities.json";
+    public static String FILENAME = "src\\main\\java\\ua\\project\\resources\\cities.json";
 
-    public List<String> getOfflineCities() {
+
+    public static List<String> getOfflineCities() {
 
         try (FileInputStream file = new FileInputStream(FILENAME)){
             JsonArray jsonArray = JsonParser.parseReader(
