@@ -11,7 +11,7 @@ public class GameFrame extends SuperFrame implements ActionListener {
     JLabel computerLabel;
     JTextField cityField;
     JButton makeMoveButton;
-    JTextArea taSummary;
+    JTextArea summaryField;
 
     public GameFrame() {
         super("Міста", new Dimension(460, 170));
@@ -47,14 +47,14 @@ public class GameFrame extends SuperFrame implements ActionListener {
         computerLabel.setPreferredSize(new Dimension(125, 25));
         cityHintLabel.setPreferredSize(new Dimension(125, 25));
 
-        taSummary = new JTextArea();
-        taSummary.setPreferredSize(new Dimension(125, 90));
+        summaryField = new JTextArea();
+        summaryField.setPreferredSize(new Dimension(125, 90));
 
         panel0.add(cityField);
         panel0.add(cityHintLabel);
         panel1.add(makeMoveButton);
         panel1.add(computerLabel);
-        panel2.add(taSummary);
+        panel2.add(summaryField);
 
         panelLeft.add(panel0);
         panelLeft.add(panel1);
