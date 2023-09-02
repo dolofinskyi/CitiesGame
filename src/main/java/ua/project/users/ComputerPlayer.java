@@ -1,10 +1,10 @@
 package ua.project.users;
 import java.util.List;
-import java.util.Set;
 
 
 public class ComputerPlayer extends Player {
     private Set<String> citiesList;
+
 
     public ComputerPlayer(String name, Set<String> citiesList) {
         super(name);
