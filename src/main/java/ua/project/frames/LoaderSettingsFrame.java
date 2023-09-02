@@ -19,6 +19,7 @@ public class LoaderSettingsFrame extends SuperFrame implements ActionListener {
     public void drawElements() {
         onlineRadioButton = new JRadioButton("Online");
         offlineRadioButton = new JRadioButton("Offline");
+        offlineRadioButton.setSelected(true);
         confirmButton = new JButton("Зберегти");
         confirmButton.addActionListener(this);
         ButtonGroup bg = new ButtonGroup();
