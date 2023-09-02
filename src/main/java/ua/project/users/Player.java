@@ -1,23 +1,26 @@
 package ua.project.users;
+import java.util.List;
 import java.util.Set;
 
 public abstract class Player {
-    protected Set<String> usedCities;
     protected String name;
+    private int moves = 0;
 
-    public Player(String name, Set<String> usedCities) {
+    public Player(String name) {
         this.name = name;
-        this.usedCities = usedCities;
     }
-
     public String getName() {
         return name;
     }
-
-    public boolean hasUsedCity(String city) {
-        return usedCities.contains(city);
+    public int getMoves() {
+        return moves;
     }
 
-    public abstract String getSmartCityStartingWith(char letter);
-    public abstract void addUsedCity(String city);
+    public void increaseMoves() {
+        this.moves++;
+    }
+
+    public abstract void process(List<String> cities, String lastSymbol, String enteredValue);
+    public abstract boolean isHuman();
+
 }
