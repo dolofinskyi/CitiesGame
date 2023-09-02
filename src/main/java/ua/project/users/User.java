@@ -1,5 +1,4 @@
-package org.example.User;
-
+package ua.project.users;
 import java.util.Set;
 
 public class User extends Player {
