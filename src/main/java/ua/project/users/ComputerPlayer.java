@@ -1,20 +1,14 @@
 package ua.project.users;
-import java.util.Set;
-
+import java.util.List;
 
 public class ComputerPlayer extends Player {
-    private Set<String> citiesList;
-
-    public ComputerPlayer(String name, Set<String> citiesList, Set<String> usedCities) {
-        super(name, usedCities);
-        this.citiesList = citiesList;
+    public ComputerPlayer(String name) {
+        super(name);
     }
 
-    @Override
-    public String getSmartCityStartingWith(char letter) {
+    public String getCityStartWith(char letter, List<String> citiesList) {
         for (String city : citiesList) {
-            if (!usedCities.contains(city) && Character.toLowerCase(city.charAt(0)) == Character.toLowerCase(letter)) {
-                usedCities.add(city);
+            if (Character.toLowerCase(city.charAt(0)) == Character.toLowerCase(letter)) {
                 return city;
             }
         }
@@ -22,7 +16,12 @@ public class ComputerPlayer extends Player {
     }
 
     @Override
-    public void addUsedCity(String city) {
-        usedCities.add(city);
+    public void process(List<String> cities, String lastSymbol, String enteredValue) {
+
+    }
+
+    @Override
+    public boolean isHuman() {
+        return false;
     }
 }

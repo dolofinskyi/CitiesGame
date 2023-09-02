@@ -1,18 +1,19 @@
 package ua.project.users;
+import java.util.List;
 import java.util.Set;
 
 public class HumanPlayer extends Player {
-    public HumanPlayer(String name, Set<String> usedCities) {
-        super(name, usedCities);
+    public HumanPlayer(String name) {
+        super(name);
     }
 
     @Override
-    public String getSmartCityStartingWith(char letter) {
-        return null;
+    public void process(List<String> cities, String lastSymbol, String enteredValue) {
+
     }
 
     @Override
-    public void addUsedCity(String city) {
-        usedCities.add(city);
+    public boolean isHuman() {
+        return true;
     }
 }
