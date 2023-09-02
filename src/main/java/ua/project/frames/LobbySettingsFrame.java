@@ -13,11 +13,13 @@ public class LobbySettingsFrame extends SuperFrame implements ActionListener {
     JButton confirmButton;
     JTextArea playersArea;
 
-    // Game.players або List<AbstractClassOfPlayer> players;
+    // Game.players або ArrayList<String> players;
     ArrayList<String> players = new ArrayList<>();
 
     public LobbySettingsFrame() {
         super("Лоббі гри", new Dimension(300, 300));
+        players.add("user1");
+        players.add("Comp");
     }
 
     @Override
@@ -89,8 +91,10 @@ public class LobbySettingsFrame extends SuperFrame implements ActionListener {
         }
 
         if (e.getSource() == confirmButton){
-            dispose();
-            // game.players = players;
+            if (players.size() >= 2){
+                dispose();
+                // game.players = players;
+            }
         }
     }
 }
