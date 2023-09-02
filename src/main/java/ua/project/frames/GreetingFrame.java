@@ -42,7 +42,7 @@ public class GreetingFrame extends SuperFrame implements ActionListener {
         b = new JButton("Розпочати гру");
         b.addActionListener(this);
 
-        getRootPanel().add(menuBar);
+        setJMenuBar(menuBar);
         getRootPanel().add(lb);
         getRootPanel().add(b);
     }
