@@ -1,17 +1,12 @@
 package ua.project.users;
 import java.util.List;
 
-
 public class ComputerPlayer extends Player {
-    private Set<String> citiesList;
-
-
-    public ComputerPlayer(String name, Set<String> citiesList) {
+    public ComputerPlayer(String name) {
         super(name);
-        this.citiesList = citiesList;
     }
 
-    public String getCityStartWith(char letter) {
+    public String getCityStartWith(char letter, List<String> citiesList) {
         for (String city : citiesList) {
             if (Character.toLowerCase(city.charAt(0)) == Character.toLowerCase(letter)) {
                 return city;
