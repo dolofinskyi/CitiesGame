@@ -1,8 +1,8 @@
 package ua.project.users;
 import java.util.Set;
 
-public class User extends Player {
-    public User(String name, Set<String> usedCities) {
+public class HumanPlayer extends Player {
+    public HumanPlayer(String name, Set<String> usedCities) {
         super(name, usedCities);
     }
 

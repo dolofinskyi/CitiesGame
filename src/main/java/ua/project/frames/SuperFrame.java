@@ -7,6 +7,7 @@ public abstract class SuperFrame extends JFrame {
     private final JPanel rootPanel = new JPanel();
     final Font font = new Font(Font.SERIF, Font.BOLD, 15);
 
+
     public SuperFrame(String title, Dimension size){
         super(title);
         drawElements();
