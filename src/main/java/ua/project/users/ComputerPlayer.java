@@ -2,10 +2,10 @@ package ua.project.users;
 import java.util.Set;
 
 
-public class Computer extends Player {
+public class ComputerPlayer extends Player {
     private Set<String> citiesList;
 
-    public Computer(String name, Set<String> citiesList, Set<String> usedCities) {
+    public ComputerPlayer(String name, Set<String> citiesList, Set<String> usedCities) {
         super(name, usedCities);
         this.citiesList = citiesList;
     }
