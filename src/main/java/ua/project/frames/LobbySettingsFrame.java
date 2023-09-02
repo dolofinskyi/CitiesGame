@@ -21,6 +21,7 @@ public class LobbySettingsFrame extends SuperFrame implements ActionListener {
 
     public LobbySettingsFrame() {
         super("Лоббі гри", new Dimension(300, 300));
+        refreshStats();
     }
 
     @Override
