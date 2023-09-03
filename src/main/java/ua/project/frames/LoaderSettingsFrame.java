@@ -18,6 +18,7 @@ public class LoaderSettingsFrame extends SuperFrame implements ActionListener {
         loaderCheckBox = new JCheckBox("Онлайн");
         confirmButton = new JButton("Зберегти");
         confirmButton.addActionListener(this);
+        getRootPanel().add(loaderCheckBox);
         getRootPanel().add(confirmButton);
     }
 
