@@ -9,11 +9,11 @@ public class HumanPlayer extends Player {
     }
 
     @Override
-    public MoveState process(List<String> cities, String lastSymbol, String enteredCity) {
-        String firstSymbol = enteredCity.substring(0, 1);
-        if (cities.contains(enteredCity)
+    public MoveState move(List<String> cities, String lastSymbol, String enteredCity) {
+        String firstSymbol = enteredCity.substring(0, 1).toUpperCase();
+        if (cities.contains(enteredCity.toUpperCase())
                 && (firstSymbol.equals(lastSymbol) || lastSymbol.isEmpty())) {
-            setCurrentCity(enteredCity);
+            setEnteredCity(enteredCity);
             increaseMoves();
             return MoveState.CORRECT;
         }
@@ -24,5 +24,4 @@ public class HumanPlayer extends Player {
     public boolean isHuman() {
         return true;
     }
-
 }

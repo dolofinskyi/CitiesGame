@@ -26,7 +26,7 @@ public class OfflineLoader {
 
             Stream<JsonElement> stream = StreamSupport.stream(jsonArray.spliterator(), true);
             return stream
-                    .map(element -> element.getAsJsonObject().get("object_name").getAsString())
+                    .map(element -> element.getAsJsonObject().get("object_name").getAsString().toUpperCase())
                     .collect(Collectors.toList());
         } catch (IOException e){
             throw new RuntimeException(e);
