@@ -17,7 +17,7 @@ public class OfflineLoader {
     public static String FILENAME = "src\\main\\java\\ua\\project\\resources\\cities.json";
 
 
-    public static List<String> getOfflineCities() {
+    public static List<String> load() {
 
         try (FileInputStream file = new FileInputStream(FILENAME)){
             JsonArray jsonArray = JsonParser.parseReader(

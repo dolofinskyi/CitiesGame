@@ -6,10 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoaderSettingsFrame extends SuperFrame implements ActionListener {
-    JRadioButton offlineRadioButton;
-    JRadioButton onlineRadioButton;
+    JCheckBox loaderCheckBox;
     JButton confirmButton;
-
 
     public LoaderSettingsFrame() {
         super("Варіант гри", new Dimension(300, 100));
@@ -17,29 +15,16 @@ public class LoaderSettingsFrame extends SuperFrame implements ActionListener {
 
     @Override
     public void drawElements() {
-        onlineRadioButton = new JRadioButton("Online");
-        offlineRadioButton = new JRadioButton("Offline");
-        offlineRadioButton.setSelected(true);
+        loaderCheckBox = new JCheckBox("Онлайн");
         confirmButton = new JButton("Зберегти");
         confirmButton.addActionListener(this);
-        ButtonGroup bg = new ButtonGroup();
-        bg.add(onlineRadioButton);
-        bg.add(offlineRadioButton);
-
-        getRootPanel().add(onlineRadioButton);
-        getRootPanel().add(offlineRadioButton);
         getRootPanel().add(confirmButton);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == confirmButton){
-            if (onlineRadioButton.isSelected()) {
-                // online
-            }
-            if (offlineRadioButton.isSelected()) {
-                // offline
-            }
+            game.reloadCities(loaderCheckBox.isSelected());
             dispose();
         }
     }
