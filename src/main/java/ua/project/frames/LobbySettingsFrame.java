@@ -8,9 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class LobbySettingsFrame extends SuperFrame implements ActionListener {
     JTextField playerField;
@@ -93,15 +90,15 @@ public class LobbySettingsFrame extends SuperFrame implements ActionListener {
         }
 
         if (e.getSource() == removePlayerButton){
-            String nickname = playerField.getText().strip();
-            game.players.remove(game.getPlayerByNickname(nickname));
+            if (game.players.size() > 0) {
+                game.players.removeLast();
+            }
             refreshStats();
         }
 
         if (e.getSource() == confirmButton){
             if (game.players.size() >= 2){
                 dispose();
-                // game.players = players;
             }
         }
     }

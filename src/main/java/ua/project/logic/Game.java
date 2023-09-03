@@ -5,21 +5,25 @@ import ua.project.users.HumanPlayer;
 import ua.project.users.Player;
 import ua.project.utils.LoadManager;
 
-import java.util.ArrayList;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.List;
 
 public class Game {
-    public List<Player> players = new ArrayList<>();
+    public Deque<Player> players = new ArrayDeque<>();
     public List<String> allCities;
+    public boolean isOnline;
 
     public Game(){
         // default settings
-        players.add(new HumanPlayer("user1"));
+        players.add(new HumanPlayer("User"));
         players.add(new ComputerPlayer("Comp"));
         allCities = LoadManager.load(false);
+        isOnline = false;
     }
 
     public void reloadCities(boolean isOnline){
+        this.isOnline = isOnline;
         allCities = LoadManager.load(isOnline);
     }
 
