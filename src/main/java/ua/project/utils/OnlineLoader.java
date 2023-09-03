@@ -14,15 +14,14 @@ public class OnlineLoader {
 
     private static String getCleanCityName(String str) {
         if (str.indexOf("(") > 0) {
-            return str.substring(0, str.indexOf("(")).strip();
+            return str.substring(0, str.indexOf("(")).strip().toUpperCase();
         }
-        return str;
+        return str.toUpperCase();
     }
 
     private static boolean cityNameIsCorrect(String str) {
         return !str.contains(".");
     }
-
 
     public static List<String> load() {
         try {

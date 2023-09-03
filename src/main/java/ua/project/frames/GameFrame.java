@@ -1,5 +1,9 @@
 package ua.project.frames;
 
+import ua.project.logic.Game;
+import ua.project.logic.MoveState;
+import ua.project.users.Player;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -7,14 +11,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameFrame extends SuperFrame implements ActionListener {
-    JLabel cityHintLabel;
-    JLabel computerLabel;
+    static JLabel cityHintLabel;
+    static JLabel computerLabel;
+    JLabel moveStatusLabel;
     JTextField cityField;
     JButton makeMoveButton;
-    JTextArea summaryField;
+    static JButton giveUpButton;
+    static JTextArea summaryField;
 
     public GameFrame() {
-        super("Міста", new Dimension(460, 170));
+        super("Міста", new Dimension(560, 170));
     }
 
     @Override
@@ -34,43 +40,97 @@ public class GameFrame extends SuperFrame implements ActionListener {
         panel1.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JPanel panel2 = new JPanel();
+        panel1.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        JPanel panel3 = new JPanel();
         panel2.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        cityHintLabel = new JLabel("Введіть назву міста");
-        computerLabel = new JLabel("Комп'ютер: ");
         cityField = new JTextField();
-        makeMoveButton = new JButton("Зробити хід");
-
         cityField.setPreferredSize(new Dimension(125, 25));
+
+        makeMoveButton = new JButton("Зробити хід");
         makeMoveButton.setPreferredSize(new Dimension(125, 25));
 
-        computerLabel.setPreferredSize(new Dimension(125, 25));
-        cityHintLabel.setPreferredSize(new Dimension(125, 25));
+        giveUpButton = new JButton("Здаюся");
+        giveUpButton.setPreferredSize(new Dimension(125, 25));
+
+        cityHintLabel = new JLabel("Введіть назву міста");
+        cityHintLabel.setPreferredSize(new Dimension(225, 25));
+
+        computerLabel = new JLabel("Комп'ютер: ");
+        computerLabel.setPreferredSize(new Dimension(225, 25));
+
+        moveStatusLabel = new JLabel("");
+        moveStatusLabel.setPreferredSize(new Dimension(225, 25));
 
         summaryField = new JTextArea();
         summaryField.setPreferredSize(new Dimension(125, 90));
+        //summaryField.setEnabled(false);
+        //summaryField.setBackground(this.getBackground());
 
         panel0.add(cityField);
         panel0.add(cityHintLabel);
+
         panel1.add(makeMoveButton);
         panel1.add(computerLabel);
-        panel2.add(summaryField);
+
+        panel2.add(giveUpButton);
+        panel2.add(moveStatusLabel);
+
+        panel3.add(summaryField);
 
         panelLeft.add(panel0);
         panelLeft.add(panel1);
-        panelRight.add(panel2);
+        panelLeft.add(panel2);
+        panelRight.add(panel3);
 
         getRootPanel().add(panelLeft);
         getRootPanel().add(panelRight);
 
         makeMoveButton.addActionListener(this);
+        giveUpButton.addActionListener(this);
+    }
+    private static void checkStatusGame() {
+        Player curPlayer = game.players.getFirst();
+        Player prevPlayer = game.players.getLast();
+        summaryField.setText(game.checkPlayersStatus());
+        if (!game.getLastSymbol().isEmpty() && !prevPlayer.isHuman()) {
+            computerLabel.setText("Комп'ютер: " + game.getCurCity());
+        } else {
+            computerLabel.setText("Комп'ютер: ");
+        }
+
+        if (game.gameCanGoOn()) {
+            cityHintLabel.setText(curPlayer.getName() + " вам на " + "\"" + game.getLastSymbol() + "\"");
+        } else if (game.getWinner() != null) {
+            cityHintLabel.setText("Переміг " + "\"" + game.getWinner().getName() + "\"");
+            computerLabel.setText("Комп'ютер: ");
+            giveUpButton.setEnabled(false);
+        }
+//        if (!cityGame.gameCanGoOn()) {
+//            stopGame();
+//        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == makeMoveButton) {
-            dispose();
+            Player curPlayer = game.players.getFirst();
+            if (curPlayer.isHuman()) {
+                boolean result = game.processGame(cityField.getText());
+                if (result) {
+                    cityField.setText("");
+                    moveStatusLabel.setText("");
+                    checkStatusGame();
+                } else {
+                    moveStatusLabel.setText("Місто введене не вірно");
+                }
+            }
+            //dispose();
             //new GameWindow();
+        } else if (e.getSource() == giveUpButton) {
+            game.processGame(MoveState.GIVEUP.name());
+            checkStatusGame();
         }
     }
 }

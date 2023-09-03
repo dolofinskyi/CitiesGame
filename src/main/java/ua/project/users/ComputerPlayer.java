@@ -13,11 +13,11 @@ public class ComputerPlayer extends Player {
     }
 
     @Override
-    public MoveState process(List<String> cities, String lastSymbol, String enteredCity) {
+    public MoveState move(List<String> cities, String lastSymbol, String enteredCity) {
         if (!lastSymbol.isEmpty()) {
             String cityStartingWith = getCityStartWith(lastSymbol.charAt(0), cities);
             if (cityStartingWith != null) {
-                setCurrentCity(cityStartingWith);
+                setEnteredCity(cityStartingWith);
                 increaseMoves();
                 return MoveState.CORRECT;
             } else {
@@ -32,7 +32,7 @@ public class ComputerPlayer extends Player {
                 Random rnd = new Random();
                 int index = rnd.nextInt(cities.size());
                 String randomCity = cities.get(index);
-                setCurrentCity(randomCity);
+                setEnteredCity(randomCity);
                 increaseMoves();
                 return MoveState.CORRECT;
             }

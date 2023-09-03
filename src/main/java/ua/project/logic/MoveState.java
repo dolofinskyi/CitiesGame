@@ -4,5 +4,5 @@ public enum MoveState {
     CORRECT,
     UNCORRECT,
     NOMOVE,
-    SURRENDER
+    GIVEUP
 }
