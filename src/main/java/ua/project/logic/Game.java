@@ -6,7 +6,6 @@ import ua.project.users.Player;
 import ua.project.utils.LoadManager;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Game {
     public Deque<Player> players = new ArrayDeque<>();
@@ -57,7 +56,7 @@ public class Game {
         }
 
         this.lastSymbol = symbol;
-        allCities.remove(allCities.indexOf(cityName));
+        allCities.remove(cityName);
     }
 
     public String getLastSymbol() {
@@ -93,7 +92,7 @@ public class Game {
         PLAYERS_PROGRESS.put(curPlayer, curPlayer.getPlayerState());
         List<Player> collect = players.stream()
                 .filter(pl -> pl.getPlayerState() != PlayerState.WIN)
-                .collect(Collectors.toList());
+                .toList();
         for (Player player : collect) {
             setPlayerLose(player);
         }
@@ -117,6 +116,7 @@ public class Game {
     public boolean processGame(String enteredValue) {
         //System.out.println("players.size() = " + players.size());
         Player curPlayer = players.peekFirst();
+        assert curPlayer != null;
         if (enteredValue.equals(MoveState.GIVEUP.name())) {
             setPlayerLose(curPlayer);
             enteredValue = "";
@@ -128,7 +128,7 @@ public class Game {
         if (gameCanGoOn()) {
             MoveState result = curPlayer.move(allCities, lastSymbol, enteredValue);
             switch (result) {
-                case CORRECT:
+                case CORRECT -> {
                     setCurCity(curPlayer.getEnteredCity());
                     setLastSymbol(curPlayer.getEnteredCity());
                     if (gameCanGoOn()) {
@@ -140,11 +140,14 @@ public class Game {
                         setWinnerAndLose(curPlayer);
                     }
                     return true;
-                case UNCORRECT:
+                }
+                case UNCORRECT -> {
                     return false;
-                case NOMOVE:
+                }
+                case NOMOVE -> {
                     setPlayerLose(curPlayer);
                     return true;
+                }
             }
         } else {
             setWinnerAndLose(curPlayer);
