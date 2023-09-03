@@ -85,7 +85,7 @@ public class LobbySettingsFrame extends SuperFrame implements ActionListener {
                     game.players.add(new HumanPlayer(nickname));
                 }
             }
-
+            playerField.setText("");
             refreshStats();
         }
 
