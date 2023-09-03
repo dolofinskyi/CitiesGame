@@ -24,15 +24,18 @@ public class OnlineLoader {
     }
 
 
-    public static List<String> getOnlineCities() throws IOException {
-        Document document = Jsoup.connect(URL_CITY_OF_UKRAINE).get();
-        Elements cityElements = document.select("a.alist");
+    public static List<String> load() {
+        try {
+            Document document = Jsoup.connect(URL_CITY_OF_UKRAINE).get();
+            Elements cityElements = document.select("a.alist");
 
-        return cityElements.stream()
-                .map(Element::text)
-                .filter(OnlineLoader::cityNameIsCorrect)
-                .map(OnlineLoader::getCleanCityName)
-                .collect(Collectors.toList());
-
+            return cityElements.stream()
+                    .map(Element::text)
+                    .filter(OnlineLoader::cityNameIsCorrect)
+                    .map(OnlineLoader::getCleanCityName)
+                    .collect(Collectors.toList());
+        } catch (IOException e){
+            throw new RuntimeException(e);
+        }
     }
 }
