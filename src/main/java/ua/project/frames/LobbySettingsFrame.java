@@ -17,7 +17,7 @@ public class LobbySettingsFrame extends SuperFrame implements ActionListener {
     JTextArea playersArea;
 
     public LobbySettingsFrame() {
-        super("Лоббі гри", new Dimension(300, 300));
+        super("Лоббі гри", new Dimension(300, 320));
         refreshStats();
     }
 
