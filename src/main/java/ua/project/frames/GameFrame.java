@@ -23,7 +23,7 @@ public class GameFrame extends SuperFrame implements ActionListener {
 
     public GameFrame() {
         super("Міста", new Dimension(560, 190));
-        configureFrame();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     @Override
@@ -94,10 +94,6 @@ public class GameFrame extends SuperFrame implements ActionListener {
         giveUpButton.addActionListener(this);
     }
 
-    private void configureFrame() {
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
-
     private static void checkStatusGame() {
         Player curPlayer = game.players.getFirst();
         Player prevPlayer = game.players.getLast();
@@ -161,14 +157,12 @@ public class GameFrame extends SuperFrame implements ActionListener {
                 if (result) {
                     cityField.setText("");
                     moveStatusLabel.setText("");
-                    checkStatusGame();
                 } else {
                     moveStatusLabel.setText("Місто введене не вірно");
                 }
             }
         } else if (e.getSource() == giveUpButton) {
             game.processGame(MoveState.GIVEUP.name());
-            checkStatusGame();
         }
         if (game.getWinner() != null) {
             JDialog dialog = createDialog();
@@ -194,7 +188,6 @@ public class GameFrame extends SuperFrame implements ActionListener {
 
     public void startGame() {
         game.start();
-
         executorService = Executors.newScheduledThreadPool(1);
         executorService.scheduleAtFixedRate(GameFrame::checkStatusGame, 0, 1, TimeUnit.SECONDS);
     }

@@ -16,7 +16,7 @@ public class GreetingFrame extends SuperFrame implements ActionListener {
 
     public GreetingFrame() {
         super("Вітаємо!", new Dimension(350, 150));
-        configureFrame();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     @Override
@@ -46,10 +46,6 @@ public class GreetingFrame extends SuperFrame implements ActionListener {
         setJMenuBar(menuBar);
         getRootPanel().add(lb);
         getRootPanel().add(b);
-    }
-
-    private void configureFrame() {
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     @Override
