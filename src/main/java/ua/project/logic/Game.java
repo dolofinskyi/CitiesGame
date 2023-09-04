@@ -7,7 +7,7 @@ import ua.project.utils.LoadManager;
 
 import java.util.*;
 
-public class Game {
+public class Game extends Thread {
     public Deque<Player> players = new ArrayDeque<>();
     public List<String> allCities;
     public boolean isOnline;
@@ -16,7 +16,7 @@ public class Game {
     private final List<String> INCORRECT_SYMBOL = Arrays.asList("И", "Й", "Ї", "Ь", "-", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", " ");
     private final HashMap<Player, PlayerState> PLAYERS_PROGRESS = new HashMap<>();
 
-    public Game(){
+    public Game() {
         // default settings
         players.add(new HumanPlayer("User"));
         players.add(new ComputerPlayer("Comp"));
@@ -24,14 +24,14 @@ public class Game {
         isOnline = false;
     }
 
-    public void reloadCities(boolean isOnline){
+    public void reloadCities(boolean isOnline) {
         this.isOnline = isOnline;
         allCities = LoadManager.load(isOnline);
     }
 
-    public Player getPlayerByNickname(String nickname){
-        for (Player player: players) {
-            if (player.getName().equals(nickname)){
+    public Player getPlayerByNickname(String nickname) {
+        for (Player player : players) {
+            if (player.getName().equals(nickname)) {
                 return player;
             }
         }
@@ -65,19 +65,24 @@ public class Game {
 
     public String checkPlayersStatus() {
         StringBuilder summary = new StringBuilder();
+        summary.append("<html>");
         for (Map.Entry<Player, PlayerState> entry : PLAYERS_PROGRESS.entrySet()) {
+            String colorText = entry.getKey().isHuman() ? "green" : "red";
             if (entry.getKey().getPlayerState().equals(PlayerState.INGAME)) {
-                summary.append(entry.getKey().getName())
-                        .append(": ходи ")
+                summary.append("<font color='" + colorText + "'>")
+                        .append(entry.getKey().getName() + "</font>")
+                        .append(": походив ")
                         .append(entry.getKey().getMoves())
-                        .append("\n");
+                        .append("<br>");
             } else {
-                summary.append(entry.getKey().getName())
+                summary.append("<font color='" + colorText + "'>")
+                        .append(entry.getKey().getName() + "</font>")
                         .append(": ")
                         .append(entry.getKey().getPlayerState())
-                        .append("\n");
+                        .append("<br>");
             }
         }
+        summary.append("</html>");
         return summary.toString();
     }
 
@@ -114,7 +119,6 @@ public class Game {
     }
 
     public boolean processGame(String enteredValue) {
-        //System.out.println("players.size() = " + players.size());
         Player curPlayer = players.peekFirst();
         assert curPlayer != null;
         if (enteredValue.equals(MoveState.GIVEUP.name())) {
@@ -133,9 +137,6 @@ public class Game {
                     setLastSymbol(curPlayer.getEnteredCity());
                     if (gameCanGoOn()) {
                         backOfQueue(curPlayer);
-                        if (!players.getFirst().isHuman()) {
-                            processGame("");
-                        }
                     } else {
                         setWinnerAndLose(curPlayer);
                     }
@@ -151,7 +152,6 @@ public class Game {
             }
         } else {
             setWinnerAndLose(curPlayer);
-
         }
         return false;
     }
@@ -161,5 +161,20 @@ public class Game {
                 .filter(str -> str.startsWith(lastSymbol))
                 .count();
         return (count > 0 && players.size() > 1);
+    }
+
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                Thread.currentThread().sleep(1500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            if (!players.getFirst().isHuman()) {
+                processGame("");
+            }
+        }
     }
 }

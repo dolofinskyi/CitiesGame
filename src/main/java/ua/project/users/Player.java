@@ -1,4 +1,5 @@
 package ua.project.users;
+
 import ua.project.logic.MoveState;
 import ua.project.logic.PlayerState;
 
@@ -14,6 +15,7 @@ public abstract class Player {
         this.name = name;
         this.playerState = PlayerState.INGAME;
     }
+
     public String getName() {
         return name;
     }

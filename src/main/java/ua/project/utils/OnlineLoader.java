@@ -33,7 +33,7 @@ public class OnlineLoader {
                     .filter(OnlineLoader::cityNameIsCorrect)
                     .map(OnlineLoader::getCleanCityName)
                     .collect(Collectors.toList());
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

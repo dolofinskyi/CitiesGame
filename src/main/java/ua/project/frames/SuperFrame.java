@@ -10,13 +10,14 @@ public abstract class SuperFrame extends JFrame {
     final Font font = new Font(Font.SERIF, Font.BOLD, 15);
     public static final Game game = new Game();
 
-    public SuperFrame(String title, Dimension size){
+    public SuperFrame(String title, Dimension size) {
         super(title);
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/java/ua/project/resources/CitiesLogo.png"));
         drawElements();
         configureFrame(size);
     }
 
-    private void configureFrame(Dimension size){
+    private void configureFrame(Dimension size) {
         add(rootPanel);
         rootPanel.setBorder(
                 BorderFactory.createEmptyBorder(15, 15, 15, 15)
@@ -26,11 +27,11 @@ public abstract class SuperFrame extends JFrame {
         setSize(size);
         setLocationRelativeTo(null);
         setResizable(false);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
     }
 
-    public JPanel getRootPanel(){
+    public JPanel getRootPanel() {
         return rootPanel;
     }
 

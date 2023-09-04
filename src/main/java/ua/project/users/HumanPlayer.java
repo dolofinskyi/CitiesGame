@@ -1,4 +1,5 @@
 package ua.project.users;
+
 import ua.project.logic.MoveState;
 
 import java.util.List;

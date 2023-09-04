@@ -16,6 +16,7 @@ public class GreetingFrame extends SuperFrame implements ActionListener {
 
     public GreetingFrame() {
         super("Вітаємо!", new Dimension(350, 150));
+        configureFrame();
     }
 
     @Override
@@ -47,11 +48,15 @@ public class GreetingFrame extends SuperFrame implements ActionListener {
         getRootPanel().add(b);
     }
 
+    private void configureFrame() {
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == b) {
             dispose();
-            new GameFrame();
+            new GameFrame().startGame();
         }
         if(e.getSource() == loaderSettingsMenu){
             new LoaderSettingsFrame();

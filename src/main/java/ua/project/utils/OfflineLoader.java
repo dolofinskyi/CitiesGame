@@ -19,7 +19,7 @@ public class OfflineLoader {
 
     public static List<String> load() {
 
-        try (FileInputStream file = new FileInputStream(FILENAME)){
+        try (FileInputStream file = new FileInputStream(FILENAME)) {
             JsonArray jsonArray = JsonParser.parseReader(
                     new InputStreamReader(file, UTF_8)
             ).getAsJsonArray();
@@ -28,7 +28,7 @@ public class OfflineLoader {
             return stream
                     .map(element -> element.getAsJsonObject().get("object_name").getAsString().toUpperCase())
                     .collect(Collectors.toList());
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
