@@ -14,38 +14,31 @@ public class ComputerPlayer extends Player {
 
     @Override
     public MoveState move(List<String> cities, String lastSymbol, String enteredCity) {
-        if (!lastSymbol.isEmpty()) {
-            String cityStartingWith = getCityStartWith(lastSymbol.charAt(0), cities);
-            if (cityStartingWith != null) {
-                setEnteredCity(cityStartingWith);
-                increaseMoves();
-                return MoveState.CORRECT;
-            } else {
-                setPlayerState(PlayerState.LOSE);
-                return MoveState.NOMOVE;
-            }
+        String randCity = getRandomCity(lastSymbol, cities);
+
+        if (randCity != null) {
+            setEnteredCity(randCity);
+            increaseMoves();
+            return MoveState.CORRECT;
         } else {
-            if (cities.isEmpty()) {
-                setPlayerState(PlayerState.LOSE);
-                return MoveState.NOMOVE;
-            } else {
-                Random rnd = new Random();
-                int index = rnd.nextInt(cities.size());
-                String randomCity = cities.get(index);
-                setEnteredCity(randomCity);
-                increaseMoves();
-                return MoveState.CORRECT;
-            }
+            setPlayerState(PlayerState.LOSE);
+            return MoveState.NOMOVE;
         }
     }
 
-    private String getCityStartWith(char letter, List<String> cities) {
-        for (String city : cities) {
-            if (Character.toLowerCase(city.charAt(0)) == Character.toLowerCase(letter)) {
-                return city;
-            }
+    private String getRandomCity(String letter, List<String> cities) {
+        Random rand = new Random();
+
+        if (letter.isEmpty()){
+            return cities.get(rand.nextInt(cities.size()));
         }
-        return null;
+
+        List<String> availableCities = cities.stream().filter(city ->
+                String.valueOf(city.toLowerCase().charAt(0)).equals(letter.toLowerCase())
+        ).toList();
+
+        if (availableCities.size() == 0) return null;
+        return availableCities.get(rand.nextInt(availableCities.size()));
     }
 
     @Override

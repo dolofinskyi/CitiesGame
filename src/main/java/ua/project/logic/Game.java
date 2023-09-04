@@ -55,7 +55,7 @@ public class Game extends Thread {
             symbol = cityName.substring(length - index, length - index + 1).toUpperCase();
         }
 
-        this.lastSymbol = symbol;
+        this.lastSymbol = String.valueOf(symbol.charAt(0));
         allCities.remove(cityName);
     }
 
@@ -158,7 +158,7 @@ public class Game extends Thread {
 
     public boolean gameCanGoOn() {
         long count = allCities.stream()
-                .filter(str -> str.startsWith(lastSymbol))
+                .filter(str -> str.startsWith(String.valueOf(lastSymbol)))
                 .count();
         return (count > 0 && players.size() > 1);
     }

@@ -9,7 +9,7 @@ public abstract class Player {
     protected String name;
     private int moves = 0;
     private PlayerState playerState;
-    private String eneteredCity;
+    private String enteredCity;
 
     public Player(String name) {
         this.name = name;
@@ -21,11 +21,11 @@ public abstract class Player {
     }
 
     public String getEnteredCity() {
-        return eneteredCity;
+        return enteredCity;
     }
 
-    public void setEnteredCity(String eneteredCity) {
-        this.eneteredCity = eneteredCity.toUpperCase();
+    public void setEnteredCity(String enteredCity) {
+        this.enteredCity = enteredCity.toUpperCase();
     }
 
     public int getMoves() {
