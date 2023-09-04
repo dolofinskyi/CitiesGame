@@ -15,9 +15,10 @@ public class LobbySettingsFrame extends SuperFrame implements ActionListener {
     JButton removePlayerButton;
     JButton confirmButton;
     JTextArea playersArea;
+    JLabel lobbyLabel;
 
     public LobbySettingsFrame() {
-        super("Лоббі гри", new Dimension(300, 320));
+        super("Лоббі гри", new Dimension(300, 340));
         refreshStats();
     }
 
@@ -29,10 +30,13 @@ public class LobbySettingsFrame extends SuperFrame implements ActionListener {
         panel1.setLayout(new FlowLayout());
         JPanel panel2 = new JPanel();
         panel2.setLayout(new FlowLayout());
+        JPanel panel3 = new JPanel();
+        panel3.setLayout(new FlowLayout());
 
         playerField = new JTextField();
         playerField.setPreferredSize(new Dimension(100, 25));
-
+        lobbyLabel = new JLabel("Нікнейм має бути від 4 до 16 символів");
+        lobbyLabel.setVisible(false);
         addPlayerButton = new JButton("Додати");
         addPlayerButton.setPreferredSize(new Dimension(100, 25));
         removePlayerButton = new JButton("Видалити");
@@ -55,11 +59,18 @@ public class LobbySettingsFrame extends SuperFrame implements ActionListener {
         panel1.add(removePlayerButton);
         panel1.add(addPlayerButton);
 
-        panel2.add(scroll);
+        panel2.add(lobbyLabel);
+        panel3.add(scroll);
+
+        panel0.setPreferredSize(new Dimension(225, 30));
+        panel1.setPreferredSize(new Dimension(225, 30));
+        panel2.setPreferredSize(new Dimension(225, 25));
+        panel3.setPreferredSize(new Dimension(225, 150));
 
         getRootPanel().add(panel0);
         getRootPanel().add(panel1);
         getRootPanel().add(panel2);
+        getRootPanel().add(panel3);
     }
 
     private void refreshStats(){
@@ -74,7 +85,7 @@ public class LobbySettingsFrame extends SuperFrame implements ActionListener {
             String nickname = playerField.getText().strip();
 
             if (nickname.length() < 4 || nickname.length() > 16){
-                // не підходить
+                lobbyLabel.setVisible(true);
                 return;
             }
 
@@ -85,6 +96,8 @@ public class LobbySettingsFrame extends SuperFrame implements ActionListener {
                     game.players.add(new HumanPlayer(nickname));
                 }
             }
+
+            lobbyLabel.setVisible(false);
             playerField.setText("");
             refreshStats();
         }
